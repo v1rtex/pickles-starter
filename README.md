@@ -1,4 +1,4 @@
-pickles-starter
+PICKLES Starter
 ===============
 
-Starter culture for PICKLES
+The official starter culture for PICKLES.
