@@ -1,0 +1,26 @@
+<h2>Frequently Asked Questions</h2>
+
+<p>This page is special because it has a module to go along with the template. The module has a class named "faq" that is extending the PICKLES "Module" class. That class contains a "__default" method that is returning an array of questions which are displayed below. Obviously you could load up a bunch of database internation and other business logic in the module.</p>
+
+<p>
+	You can get data out of the module two different ways:
+
+	<ol>
+		<li>By returning the data with the language contruct return from __default</li>
+		<li>By assigning the variables to the class itself via $this->var = $value</li>
+	</ol>
+
+	There is no right way to get data out of the module, both methods can be mixed and matched and both methods have their own strengths and caveats. Data from the module is available in the template via the $__module variable.
+</p>
+
+<h3>Oh these were the questions I was referring to&hellip;</h3>
+
+<dl>
+	<?php
+	foreach ($__module['questions'] as $question => $answer)
+	{
+		echo $__html->dt($question);
+		echo $__html->dd($answer);
+	}
+	?>
+</dl>

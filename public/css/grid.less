@@ -1,0 +1,129 @@
+/**
+ * LESS Grid
+ *
+ * @author Josh Sherman
+ * @link   http://joshtronic.github.com/grid.less
+ * @link   http://github.com/joshtronic/grid.less
+ */
+
+// {{{ Mixins and generic styles
+
+// Mixin to set the box-sizing to border-box
+.border-box
+{
+	-ms-box-sizing:     border-box;
+	-moz-box-sizing:    border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing:         border-box;
+}
+
+// Grid container
+[class*="grid-"]
+{
+	.border-box;
+	margin:   0 auto;
+	overflow: hidden;
+	padding:  0;
+
+	// Columns
+	> div
+	{
+		.border-box;
+		display:  inline;
+		float:    left;
+		margin:   0;
+		overflow: hidden;
+		padding:  0;
+	}
+
+	// Clears left and right margins on first and last elements
+	> div:first-child { margin-left:  0 !important; }
+	> div:last-child  { margin-right: 0 !important; }
+}
+
+// Leading reset
+[class*="grid-"][class*="r"][class*="l"] > div.l0 { margin-bottom: 0px !important; }
+
+// Padding (space inside of cells)
+@max-padding: 30;
+
+.loopPadding(@padding) when (@padding > 0)
+{
+	(~"[class*='grid-'] > div.p@{padding}") { padding: ~"@{padding}px"; }
+
+	.loopPadding(@padding - 1);
+}
+
+.loopPadding(0) { }
+.loopPadding(@max-padding);
+
+// }}}
+// {{{ Grid Generator
+
+.grid(@class-name, @width: 1200, @columns: 12, @margin: 0, @gutter: 0, @padding: 0, @leading: 0)
+{
+	@grid-class: ~".grid-@{class-name}";
+
+	// Grid
+	(~"@{grid-class}")
+	{
+		padding: ~"@{margin}px";
+		width:   ~"@{width}px";
+	}
+
+	// Columns
+	@column-width: (100 - (((@gutter * (@columns - 1)) / (@width - (@margin * 2))) * 100)) / @columns;
+	@gutter-width: (100 - (@column-width * @columns)) / (@columns - 1) / 2;
+
+	(~"@{grid-class} > div")
+	{
+		margin:  0 ~"@{gutter-width}%";
+		padding: ~"@{padding}px";
+		width:   ~"@{column-width}%";
+	}
+
+	// Clears left and right margins on first and last row elements
+	@repeat: @columns + 1;
+
+	(~"@{grid-class}[class*='r'] > div:nth-child(@{columns}n+@{repeat})")  { margin-left:  0 !important; }
+	(~"@{grid-class}[class*='r'] > div:nth-child(@{columns}n+@{columns})") { margin-right: 0 !important; }
+
+	// Leading (space between rows)
+	(~"@{grid-class}[class*='r'] > div")
+	{
+		margin-bottom: ~"@{leading}px" !important;
+	}
+
+	// Column spanning
+	@spans: @columns;
+
+	.loopSpans(@span) when (@span > 0)
+	{
+		@span-width: (@span * @column-width) + ((@gutter-width * 2) * (@span - 1));
+
+		(~"@{grid-class} > div.s@{span}") { width: ~"@{span-width}%"; }
+
+		.loopSpans(@span - 1);
+	}
+
+	.loopSpans(0) { }
+	.loopSpans(@spans);
+
+	// Column offsets
+	@offsets: @columns - 1;
+
+	.loopOffsets(@offset) when (@offset > 0)
+	{
+		@span-width:                (@offset * @column-width) + ((@gutter-width * 2) * (@offset - 1));
+		@offset-width-gutter-two:   @span-width + (@gutter-width * 2);
+		@offset-width-gutter-three: @span-width + (@gutter-width * 3);
+
+		(~"@{grid-class} > div.o@{offset}")             { margin-left: ~"@{offset-width-gutter-three}%" !important; }
+		(~"@{grid-class} > div.o@{offset}:first-child") { margin-left: ~"@{offset-width-gutter-two}%"   !important; }
+
+		.loopOffsets(@offset - 1);
+	}
+
+	.loopOffsets(0) { }
+	.loopOffsets(@offsets);
+}

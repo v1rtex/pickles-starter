@@ -1,0 +1,31 @@
+@import 'elements';
+// @import 'grid';
+@import 'properties.css';
+
+*, *:after, *:before
+{
+	.box-sizing(border-box);
+}
+
+@color-green: #c7d08d;
+
+body
+{
+	background:  @color-green;
+	color:       darken(@color-green, 40%);
+	font:        16px/1.5 "Helvetica Neue",Arial,"Liberation Sans",FreeSans,sans-serif;
+	line-height: 22px;
+	margin:      0 auto;
+	padding:     0px 10px;
+	width:       960px;
+}
+
+a
+{
+	color: darken(@color-green, 50%);
+}
+
+hr
+{
+	border: 1px solid darken(@color-green, 10%);
+}

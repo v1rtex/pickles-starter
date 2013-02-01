@@ -3,8 +3,8 @@
 $config = array(
 
 	'environments' => array(
-		'local'      => 'pickles.local',
-		'production' => 'pickles.prod',
+		'local'      => 'pickles-starter.local',
+		'production' => 'pickles-starter.production',
 	),
 
 	'php' => array(
@@ -45,8 +45,9 @@ $config = array(
 	),
 
 	'site' => array(
-		'name'      => 'PICKLES Bootstrap',
-		'analytics' => 'UA-########-#',
+		'name'        => 'PICKLES Starter',
+		'description' => '',
+		'analytics'   => 'UA-########-#',
 	),
 );
 

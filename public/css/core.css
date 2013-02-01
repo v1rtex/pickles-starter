@@ -1,28 +1,30 @@
-body
-{
-	padding-top: 40px;
+@import 'properties.css';
+/*---------------------------------------------------
+    LESS Elements 0.9 + My Hax0rin’
+  ---------------------------------------------------
+    A set of useful LESS mixins
+    More info at: http://lesselements.com
+  ---------------------------------------------------*/
+*,
+*:after,
+*:before {
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
-
-.btn:active
-{
-	margin-top: 2px;
+body {
+  background: #c7d08d;
+  color: #5f672a;
+  font: 16px/1.5 "Helvetica Neue", Arial, "Liberation Sans", FreeSans, sans-serif;
+  line-height: 22px;
+  margin: 0 auto;
+  padding: 0px 10px;
+  width: 960px;
 }
-
-input.error, .error
-{
-	color: #b94a48;
-	border-color: #ee5f5b;
+a {
+  color: #3d431b;
 }
-
-label.error
-{
-	font-style: italic;
-}
-
-input.error:focus, .error:focus
-{
-	border-color: #e9322d;
-	-webkit-box-shadow: 0 0 6px #f8b9b7;
-	-moz-box-shadow: 0 0 6px #f8b9b7;
-	box-shadow: 0 0 6px #f8b9b7;
+hr {
+  border: 1px solid #b5c169;
 }
